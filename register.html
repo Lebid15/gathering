@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تجمع خريجي الرقة - التسجيل</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <img src="public/assets/gathering-logo.png" alt="شعار التجمع" style="width: 64px; height: 64px; object-fit: contain;" class="me-2">
+                <div class="d-none d-md-block">
+                    <h1 class="h5 fw-bold mb-0" style="color: #1e40af;">تجمع خريجي الرقة</h1>
+                    <p class="small text-muted mb-0">معاً نحو مستقبل أفضل</p>
+                </div>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link px-3" href="index.html">
+                            <i class="bi bi-house-fill me-1"></i> الرئيسية
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link px-3" href="about.html">
+                            <i class="bi bi-info-circle me-1"></i> عن التجمع
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active fw-bold px-3" href="register.html">
+                            <i class="bi bi-person-plus me-1"></i> التسجيل
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- Hero Section -->
+    <section class="py-5" style="background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);">
+        <div class="container">
+            <div class="text-center text-white">
+                <i class="bi bi-person-plus-fill display-1 mb-3"></i>
+                <h1 class="display-4 fw-black mb-3">انضم إلينا</h1>
+                <p class="lead fs-4">كن جزءاً من مجتمع الكفاءات والخبرات في محافظة الرقة</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Registration Form -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="card shadow-lg border-0 rounded-4">
+                        <div class="card-body p-5">
+                            <div id="alertContainer"></div>
+                            <form id="registerForm">
+                                <!-- المعلومات الشخصية -->
+                                <h4 class="fw-bold mb-4">
+                                    <i class="bi bi-person-circle text-primary"></i> المعلومات الشخصية
+                                </h4>
+                                <div class="row g-3 mb-4">
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-bold">الاسم الأول <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control form-control-lg" id="firstName" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-bold">اسم العائلة <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control form-control-lg" id="lastName" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-bold">البريد الإلكتروني <span class="text-danger">*</span></label>
+                                        <input type="email" class="form-control form-control-lg" id="email" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-bold">رقم الجوال <span class="text-danger">*</span></label>
+                                        <div class="input-group input-group-lg">
+                                            <span class="input-group-text">+963</span>
+                                            <input type="tel" class="form-control" id="phone" placeholder="9XXXXXXXX" required>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- المعلومات الأكاديمية -->
+                                <h4 class="fw-bold mb-4">
+                                    <i class="bi bi-mortarboard-fill text-success"></i> المعلومات الأكاديمية
+                                </h4>
+                                <div class="row g-3 mb-4">
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-bold">نوع العضوية <span class="text-danger">*</span></label>
+                                        <select class="form-select form-select-lg" id="memberType" required>
+                                            <option value="">اختر...</option>
+                                            <option value="graduate">حامل شهادة جامعية</option>
+                                            <option value="student">طالب جامعي</option>
+                                            <option value="intellectual">مثقف/خبير</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-bold">الشهادة العلمية</label>
+                                        <select class="form-select form-select-lg" id="degree">
+                                            <option value="">اختر...</option>
+                                            <option value="bachelor">بكالوريوس</option>
+                                            <option value="master">ماجستير</option>
+                                            <option value="phd">دكتوراه</option>
+                                            <option value="diploma">دبلوم</option>
+                                            <option value="other">أخرى</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-bold">التخصص</label>
+                                        <input type="text" class="form-control form-control-lg" id="specialization" placeholder="مثل: هندسة مدنية">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-bold">الجامعة</label>
+                                        <input type="text" class="form-control form-control-lg" id="university" placeholder="اسم الجامعة">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-bold">سنة التخرج</label>
+                                        <input type="number" class="form-control form-control-lg" id="graduationYear" placeholder="2020" min="1950" max="2030">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-bold">المدينة الحالية <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control form-control-lg" id="city" required>
+                                    </div>
+                                </div>
+
+                                <!-- المعلومات المهنية -->
+                                <h4 class="fw-bold mb-4">
+                                    <i class="bi bi-briefcase-fill text-warning"></i> المعلومات المهنية (اختياري)
+                                </h4>
+                                <div class="row g-3 mb-4">
+                                    <div class="col-12">
+                                        <label class="form-label fw-bold">الوظيفة الحالية</label>
+                                        <input type="text" class="form-control form-control-lg" id="currentJob" placeholder="المسمى الوظيفي">
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label fw-bold">الخبرات والمهارات</label>
+                                        <textarea class="form-control form-control-lg" id="expertise" rows="3" placeholder="اذكر خبراتك ومهاراتك..."></textarea>
+                                    </div>
+                                </div>
+
+                                <!-- الموافقة -->
+                                <div class="mb-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="agreeTerms" required>
+                                        <label class="form-check-label" for="agreeTerms">
+                                            أوافق على <a href="about.html" class="text-decoration-none">أهداف ومبادئ التجمع</a> وأتعهد بالالتزام بها
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <!-- Submit Button -->
+                                <div class="d-grid gap-2">
+                                    <button type="submit" class="btn btn-primary btn-lg fw-bold" id="submitBtn">
+                                        <i class="bi bi-check-circle-fill me-2"></i> إرسال الطلب
+                                    </button>
+                                </div>
+                            </form>
+
+                            <!-- Success Message -->
+                            <div id="successMessage" class="d-none mt-4">
+                                <div class="alert alert-success text-center py-4">
+                                    <i class="bi bi-check-circle-fill fs-1 d-block mb-3"></i>
+                                    <h4 class="fw-bold mb-2">تم إرسال طلبك بنجاح!</h4>
+                                    <p class="mb-0">سيتم مراجعة طلبك والتواصل معك قريباً</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Info Box -->
+                    <div class="card border-primary mt-4">
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold text-primary">
+                                <i class="bi bi-info-circle-fill"></i> ملاحظة هامة
+                            </h5>
+                            <p class="card-text mb-0">
+                                بعد إرسال طلب الانتساب، سيتم مراجعته من قبل الإدارة وسيتم التواصل معك خلال 3-5 أيام عمل
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="text-white text-center py-4" style="background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);">
+        <div class="container">
+            <div class="row g-4 text-end">
+                <div class="col-md-4">
+                    <h5 class="fw-bold mb-3">تجمع خريجي ومثقفي الرقة</h5>
+                    <p class="text-white-50">
+                        كيان مدني مستقل وغير ربحي، يهدف إلى توحيد صوت المثقفين والخريجين
+                        لخدمة المجتمع وتحقيق العدالة والشفافية.
+                    </p>
+                </div>
+                <div class="col-md-4">
+                    <h5 class="fw-bold mb-3">روابط سريعة</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="about.html" class="text-white-50 text-decoration-none">عن التجمع</a></li>
+                        <li class="mb-2"><a href="register.html" class="text-white-50 text-decoration-none">التسجيل</a></li>
+                        <li class="mb-2"><a href="admin-login.html" class="text-white-50 text-decoration-none">تسجيل الدخول</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5 class="fw-bold mb-3">تواصل معنا</h5>
+                    <div class="text-white-50 text-end">
+                        <p class="mb-2"><i class="bi bi-envelope-fill me-2"></i> info@raqqa-intellectuals.org</p>
+                        <p class="mb-2"><i class="bi bi-telephone-fill me-2"></i> +963 XXX XXX XXX</p>
+                        <p class="mb-2"><i class="bi bi-geo-alt-fill me-2"></i> محافظة الرقة، سوريا</p>
+                    </div>
+                    <div class="d-flex gap-2 justify-content-end mt-3">
+                        <a href="#" class="btn btn-outline-light btn-sm rounded-circle" style="width: 40px; height: 40px;">
+                            <i class="bi bi-facebook"></i>
+                        </a>
+                        <a href="#" class="btn btn-outline-light btn-sm rounded-circle" style="width: 40px; height: 40px;">
+                            <i class="bi bi-twitter"></i>
+                        </a>
+                        <a href="#" class="btn btn-outline-light btn-sm rounded-circle" style="width: 40px; height: 40px;">
+                            <i class="bi bi-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4 border-white opacity-25">
+            <p class="mb-0 text-white-50">© 2025 تجمع خريجي ومثقفي محافظة الرقة. جميع الحقوق محفوظة.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase-config.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/register.js"></script>
+</body>
+</html>

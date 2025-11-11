@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>التجمع - لوحة التحكم</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">
+                <i class="bi bi-people-fill"></i> التجمع
+            </a>
+            <div class="d-flex align-items-center gap-3">
+                <span class="text-white">
+                    <i class="bi bi-person-circle me-2"></i> مرحباً، المدير
+                </span>
+                <button class="btn btn-outline-light btn-sm" id="logoutBtn">
+                    <i class="bi bi-box-arrow-left me-2"></i> تسجيل الخروج
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Dashboard Content -->
+    <div class="container-fluid py-4">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-3 col-lg-2 mb-4">
+                <div class="card shadow-sm">
+                    <div class="list-group list-group-flush">
+                        <a href="#" class="list-group-item list-group-item-action active" data-section="members">
+                            <i class="bi bi-people"></i> إدارة الأعضاء
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action" data-section="add">
+                            <i class="bi bi-plus-circle"></i> إضافة عضو جديد
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action" data-section="statistics">
+                            <i class="bi bi-graph-up"></i> الإحصائيات
+                        </a>
+                        <a href="index.html" class="list-group-item list-group-item-action">
+                            <i class="bi bi-house"></i> الصفحة الرئيسية
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-md-9 col-lg-10">
+                <!-- Statistics Section -->
+                <div id="statisticsSection" class="content-section d-none">
+                    <h2 class="mb-4">
+                        <i class="bi bi-graph-up"></i> الإحصائيات
+                    </h2>
+                    <div class="row g-4 mb-4">
+                        <div class="col-md-4">
+                            <div class="card shadow-sm text-center">
+                                <div class="card-body">
+                                    <i class="bi bi-people-fill fs-1 text-primary"></i>
+                                    <h3 class="mt-3 mb-0" id="statTotalMembers">0</h3>
+                                    <p class="text-muted">إجمالي الأعضاء</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card shadow-sm text-center">
+                                <div class="card-body">
+                                    <i class="bi bi-eye-fill fs-1 text-success"></i>
+                                    <h3 class="mt-3 mb-0" id="statVisibleMembers">0</h3>
+                                    <p class="text-muted">الأعضاء المرئيين</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card shadow-sm text-center">
+                                <div class="card-body">
+                                    <i class="bi bi-eye-slash-fill fs-1 text-warning"></i>
+                                    <h3 class="mt-3 mb-0" id="statHiddenMembers">0</h3>
+                                    <p class="text-muted">الأعضاء المخفيين</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add Member Section -->
+                <div id="addSection" class="content-section d-none">
+                    <h2 class="mb-4">
+                        <i class="bi bi-plus-circle"></i> إضافة عضو جديد
+                    </h2>
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <div id="addAlertContainer"></div>
+                            <form id="addMemberForm">
+                                <!-- المعلومات الشخصية -->
+                                <h4 class="fw-bold mb-4">
+                                    <i class="bi bi-person-circle text-primary"></i> المعلومات الشخصية
+                                </h4>
+                                <div class="row g-3 mb-4">
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-bold">الاسم الأول</label>
+                                        <input type="text" class="form-control" id="addFirstName">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-bold">اسم العائلة</label>
+                                        <input type="text" class="form-control" id="addLastName">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-bold">البريد الإلكتروني</label>
+                                        <input type="email" class="form-control" id="addEmail">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-bold">رقم الجوال</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text">+963</span>
+                                            <input type="tel" class="form-control" id="addPhone" placeholder="9XXXXXXXX">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- المعلومات الأكاديمية -->
+                                <h4 class="fw-bold mb-4">
+                                    <i class="bi bi-mortarboard-fill text-success"></i> المعلومات الأكاديمية
+                                </h4>
+                                <div class="row g-3 mb-4">
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-bold">نوع العضوية</label>
+                                        <select class="form-select" id="addMemberType">
+                                            <option value="">اختر...</option>
+                                            <option value="graduate">حامل شهادة جامعية</option>
+                                            <option value="student">طالب جامعي</option>
+                                            <option value="intellectual">مثقف/خبير</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-bold">الشهادة العلمية</label>
+                                        <select class="form-select" id="addDegree">
+                                            <option value="">اختر...</option>
+                                            <option value="bachelor">بكالوريوس</option>
+                                            <option value="master">ماجستير</option>
+                                            <option value="phd">دكتوراه</option>
+                                            <option value="diploma">دبلوم</option>
+                                            <option value="other">أخرى</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-bold">التخصص</label>
+                                        <input type="text" class="form-control" id="addSpecialization" placeholder="مثل: هندسة مدنية">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-bold">الجامعة</label>
+                                        <input type="text" class="form-control" id="addUniversity" placeholder="اسم الجامعة">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-bold">سنة التخرج</label>
+                                        <input type="number" class="form-control" id="addGraduationYear" placeholder="2020" min="1950" max="2030">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-bold">المدينة الحالية</label>
+                                        <input type="text" class="form-control" id="addCity">
+                                    </div>
+                                </div>
+
+                                <!-- المعلومات المهنية -->
+                                <h4 class="fw-bold mb-4">
+                                    <i class="bi bi-briefcase-fill text-warning"></i> المعلومات المهنية
+                                </h4>
+                                <div class="row g-3 mb-4">
+                                    <div class="col-12">
+                                        <label class="form-label fw-bold">الوظيفة الحالية</label>
+                                        <input type="text" class="form-control" id="addCurrentJob" placeholder="المسمى الوظيفي">
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label fw-bold">الخبرات والمهارات</label>
+                                        <textarea class="form-control" id="addExpertise" rows="3" placeholder="اذكر خبرات ومهارات العضو..."></textarea>
+                                    </div>
+                                </div>
+
+                                <!-- إعدادات الظهور -->
+                                <div class="mb-4">
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" id="addIsVisible" checked>
+                                        <label class="form-check-label fw-bold" for="addIsVisible">
+                                            عرض العضو للعامة
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex gap-2">
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="bi bi-plus-lg me-2"></i> إضافة العضو
+                                    </button>
+                                    <button type="reset" class="btn btn-secondary">
+                                        <i class="bi bi-x-lg me-2"></i> مسح الحقول
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Members Management Section -->
+                <div id="membersSection" class="content-section">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h2>
+                            <i class="bi bi-people"></i> إدارة الأعضاء
+                        </h2>
+                        <button class="btn btn-success" id="refreshBtn">
+                            <i class="bi bi-arrow-clockwise"></i> تحديث
+                        </button>
+                    </div>
+
+                    <!-- Search -->
+                    <div class="card shadow-sm mb-4">
+                        <div class="card-body">
+                            <div class="row g-3">
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" id="searchMember" placeholder="ابحث عن عضو...">
+                                </div>
+                                <div class="col-md-4">
+                                    <select class="form-select" id="filterVisibility">
+                                        <option value="all">جميع الأعضاء</option>
+                                        <option value="visible">المرئيين فقط</option>
+                                        <option value="hidden">المخفيين فقط</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Members Table -->
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <div id="membersTableContainer">
+                                <!-- Loading -->
+                                <div id="tableLoading" class="text-center py-5">
+                                    <div class="spinner-border text-primary" role="status">
+                                        <span class="visually-hidden">جاري التحميل...</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Table -->
+                                <div class="table-responsive d-none" id="tableWrapper">
+                                    <table class="table table-hover">
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th>#</th>
+                                                <th>الاسم</th>
+                                                <th>البريد الإلكتروني</th>
+                                                <th>الجوال</th>
+                                                <th>المدينة</th>
+                                                <th>الحالة</th>
+                                                <th>الإجراءات</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="membersTableBody">
+                                            <!-- Members will be loaded here -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Modal -->
+    <div class="modal fade" id="editModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="bi bi-pencil"></i> تعديل بيانات العضو
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="editAlertContainer"></div>
+                    <form id="editMemberForm">
+                        <input type="hidden" id="editMemberId">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="editFirstName" class="form-label">الاسم الأول *</label>
+                                <input type="text" class="form-control" id="editFirstName" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="editLastName" class="form-label">اسم العائلة *</label>
+                                <input type="text" class="form-control" id="editLastName" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="editEmail" class="form-label">البريد الإلكتروني</label>
+                                <input type="email" class="form-control" id="editEmail">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="editPhone" class="form-label">رقم الجوال</label>
+                                <input type="text" class="form-control" id="editPhone">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="editCity" class="form-label">المدينة</label>
+                                <input type="text" class="form-control" id="editCity">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="editCountry" class="form-label">الدولة</label>
+                                <input type="text" class="form-control" id="editCountry">
+                            </div>
+                            <div class="col-12">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="editIsVisible">
+                                    <label class="form-check-label" for="editIsVisible">
+                                        إظهار العضو في القائمة العامة
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+                    <button type="button" class="btn btn-primary" id="saveEditBtn">
+                        <i class="bi bi-save"></i> حفظ التغييرات
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase-config.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>
