@@ -72,18 +72,18 @@ registerForm.addEventListener('submit', async (e) => {
     const formData = {
         first_name: document.getElementById('firstName').value.trim(),
         last_name: document.getElementById('lastName').value.trim(),
+        nickname: document.getElementById('nickname').value.trim() || null,
         email: document.getElementById('email').value.trim(),
         phone_primary: '+963' + document.getElementById('phone').value.trim(),
         city: document.getElementById('city').value.trim(),
         member_type: document.getElementById('memberType').value,
-        degree: document.getElementById('degree').value,
-        specialization: document.getElementById('specialization').value.trim(),
-        university: document.getElementById('university').value.trim(),
-        graduation_year: document.getElementById('graduationYear').value,
-        current_job: document.getElementById('currentJob').value.trim(),
-        expertise: document.getElementById('expertise').value.trim(),
-        is_visible: false, // المسجلون الجدد مخفيون حتى الموافقة
-        created_at: new Date().toISOString()
+        degree: document.getElementById('degree').value || null,
+        specialization: document.getElementById('specialization').value.trim() || null,
+        university: document.getElementById('university').value.trim() || null,
+        graduation_year: document.getElementById('graduationYear').value ? parseInt(document.getElementById('graduationYear').value) : null,
+        current_job: document.getElementById('currentJob').value.trim() || null,
+        expertise: document.getElementById('expertise').value.trim() || null,
+        is_visible: false
     };
 
     try {
