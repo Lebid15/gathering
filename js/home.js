@@ -1,24 +1,41 @@
 // Home Page JavaScript
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+    await loadRealStatistics();
     animateStats();
 });
 
+// تحميل الإحصائيات الحقيقية من قاعدة البيانات
+async function loadRealStatistics() {
+    try {
+        const result = await window.membersAPI.getStatistics();
+        if (result.success) {
+            // تحديث عدد الأعضاء الحقيقي
+            const stat1Element = document.getElementById('stat1');
+            if (stat1Element) {
+                stat1Element.setAttribute('data-target', result.data.total);
+            }
+        }
+    } catch (error) {
+        console.error('Error loading statistics:', error);
+    }
+}
+
 // تحريك الأرقام
 function animateStats() {
-    const stats = [
-        { id: 'stat1', target: 5000, suffix: '+' },
-        { id: 'stat2', target: 15, suffix: '' },
-        { id: 'stat3', target: 100, suffix: '+' },
-        { id: 'stat4', target: 95, suffix: '%' }
-    ];
+    const stat1Element = document.getElementById('stat1');
+    const stat2Element = document.getElementById('stat2');
     
-    stats.forEach(stat => {
-        const element = document.getElementById(stat.id);
-        if (element) {
-            animateValue(element, 0, stat.target, 2000, stat.suffix);
-        }
-    });
+    // عدد الأعضاء (من قاعدة البيانات)
+    if (stat1Element) {
+        const target = parseInt(stat1Element.getAttribute('data-target')) || 0;
+        animateValue(stat1Element, 0, target, 2000, '');
+    }
+    
+    // لجنة متخصصة (ثابت)
+    if (stat2Element) {
+        animateValue(stat2Element, 0, 15, 2000, '');
+    }
 }
 
 // تأثير العد التصاعدي
