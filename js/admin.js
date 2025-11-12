@@ -201,6 +201,7 @@ async function handleAddMember(e) {
     const memberData = {
         first_name: document.getElementById('addFirstName').value.trim(),
         last_name: document.getElementById('addLastName').value.trim(),
+        nickname: document.getElementById('addNickname').value.trim() || null,
         email: document.getElementById('addEmail').value.trim() || null,
         phone_primary: document.getElementById('addPhone').value.trim() || null,
         city: document.getElementById('addCity').value.trim() || null,
@@ -241,13 +242,27 @@ window.editMember = async function(id) {
         const member = result.data;
         currentEditId = id;
         
+        // المعلومات الشخصية
         document.getElementById('editMemberId').value = id;
         document.getElementById('editFirstName').value = member.first_name;
         document.getElementById('editLastName').value = member.last_name;
+        document.getElementById('editNickname').value = member.nickname || '';
         document.getElementById('editEmail').value = member.email || '';
         document.getElementById('editPhone').value = member.phone_primary || '';
+        
+        // المعلومات الأكاديمية
+        document.getElementById('editMemberType').value = member.member_type || '';
+        document.getElementById('editDegree').value = member.degree || '';
+        document.getElementById('editSpecialization').value = member.specialization || '';
+        document.getElementById('editUniversity').value = member.university || '';
+        document.getElementById('editGraduationYear').value = member.graduation_year || '';
         document.getElementById('editCity').value = member.city || '';
-        document.getElementById('editCountry').value = member.country || '';
+        
+        // المعلومات المهنية
+        document.getElementById('editCurrentJob').value = member.current_job || '';
+        document.getElementById('editExpertise').value = member.expertise || '';
+        
+        // إعدادات الظهور
         document.getElementById('editIsVisible').checked = member.is_visible;
         
         editModal.show();
@@ -259,12 +274,26 @@ async function handleEditMember() {
     if (!currentEditId) return;
     
     const memberData = {
+        // المعلومات الشخصية
         first_name: document.getElementById('editFirstName').value.trim(),
         last_name: document.getElementById('editLastName').value.trim(),
+        nickname: document.getElementById('editNickname').value.trim() || null,
         email: document.getElementById('editEmail').value.trim() || null,
         phone_primary: document.getElementById('editPhone').value.trim() || null,
+        
+        // المعلومات الأكاديمية
+        member_type: document.getElementById('editMemberType').value || null,
+        degree: document.getElementById('editDegree').value || null,
+        specialization: document.getElementById('editSpecialization').value.trim() || null,
+        university: document.getElementById('editUniversity').value.trim() || null,
+        graduation_year: document.getElementById('editGraduationYear').value ? parseInt(document.getElementById('editGraduationYear').value) : null,
         city: document.getElementById('editCity').value.trim() || null,
-        country: document.getElementById('editCountry').value.trim() || null,
+        
+        // المعلومات المهنية
+        current_job: document.getElementById('editCurrentJob').value.trim() || null,
+        expertise: document.getElementById('editExpertise').value.trim() || null,
+        
+        // إعدادات الظهور
         is_visible: document.getElementById('editIsVisible').checked
     };
     

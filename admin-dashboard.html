@@ -101,13 +101,17 @@
                                     <i class="bi bi-person-circle text-primary"></i> المعلومات الشخصية
                                 </h4>
                                 <div class="row g-3 mb-4">
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <label class="form-label fw-bold">الاسم الأول</label>
                                         <input type="text" class="form-control" id="addFirstName">
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <label class="form-label fw-bold">اسم العائلة</label>
                                         <input type="text" class="form-control" id="addLastName">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label fw-bold">النداء</label>
+                                        <input type="text" class="form-control" id="addNickname" placeholder="الاسم المفضل">
                                     </div>
                                     <div class="col-md-6">
                                         <label class="form-label fw-bold">البريد الإلكتروني</label>
@@ -272,7 +276,7 @@
 
     <!-- Edit Modal -->
     <div class="modal fade" id="editModal" tabindex="-1">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">
@@ -284,38 +288,99 @@
                     <div id="editAlertContainer"></div>
                     <form id="editMemberForm">
                         <input type="hidden" id="editMemberId">
-                        <div class="row g-3">
-                            <div class="col-md-6">
-                                <label for="editFirstName" class="form-label">الاسم الأول *</label>
+                        
+                        <!-- المعلومات الشخصية -->
+                        <h5 class="fw-bold mb-3">
+                            <i class="bi bi-person-circle text-primary"></i> المعلومات الشخصية
+                        </h5>
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-4">
+                                <label class="form-label fw-bold">الاسم الأول *</label>
                                 <input type="text" class="form-control" id="editFirstName" required>
                             </div>
-                            <div class="col-md-6">
-                                <label for="editLastName" class="form-label">اسم العائلة *</label>
+                            <div class="col-md-4">
+                                <label class="form-label fw-bold">اسم العائلة *</label>
                                 <input type="text" class="form-control" id="editLastName" required>
                             </div>
+                            <div class="col-md-4">
+                                <label class="form-label fw-bold">النداء</label>
+                                <input type="text" class="form-control" id="editNickname" placeholder="الاسم المفضل">
+                            </div>
                             <div class="col-md-6">
-                                <label for="editEmail" class="form-label">البريد الإلكتروني</label>
+                                <label class="form-label fw-bold">البريد الإلكتروني</label>
                                 <input type="email" class="form-control" id="editEmail">
                             </div>
                             <div class="col-md-6">
-                                <label for="editPhone" class="form-label">رقم الجوال</label>
-                                <input type="text" class="form-control" id="editPhone">
+                                <label class="form-label fw-bold">رقم الجوال</label>
+                                <input type="tel" class="form-control" id="editPhone">
+                            </div>
+                        </div>
+
+                        <!-- المعلومات الأكاديمية -->
+                        <h5 class="fw-bold mb-3">
+                            <i class="bi bi-mortarboard-fill text-success"></i> المعلومات الأكاديمية
+                        </h5>
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">نوع العضوية</label>
+                                <select class="form-select" id="editMemberType">
+                                    <option value="">اختر...</option>
+                                    <option value="graduate">حامل شهادة جامعية</option>
+                                    <option value="student">طالب جامعي</option>
+                                    <option value="intellectual">مثقف/خبير</option>
+                                </select>
                             </div>
                             <div class="col-md-6">
-                                <label for="editCity" class="form-label">المدينة</label>
+                                <label class="form-label fw-bold">الشهادة العلمية</label>
+                                <select class="form-select" id="editDegree">
+                                    <option value="">اختر...</option>
+                                    <option value="bachelor">بكالوريوس</option>
+                                    <option value="master">ماجستير</option>
+                                    <option value="phd">دكتوراه</option>
+                                    <option value="diploma">دبلوم</option>
+                                    <option value="other">أخرى</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">التخصص</label>
+                                <input type="text" class="form-control" id="editSpecialization" placeholder="مثل: هندسة مدنية">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">الجامعة</label>
+                                <input type="text" class="form-control" id="editUniversity" placeholder="اسم الجامعة">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">سنة التخرج</label>
+                                <input type="number" class="form-control" id="editGraduationYear" min="1950" max="2030">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">المدينة الحالية</label>
                                 <input type="text" class="form-control" id="editCity">
                             </div>
-                            <div class="col-md-6">
-                                <label for="editCountry" class="form-label">الدولة</label>
-                                <input type="text" class="form-control" id="editCountry">
+                        </div>
+
+                        <!-- المعلومات المهنية -->
+                        <h5 class="fw-bold mb-3">
+                            <i class="bi bi-briefcase-fill text-warning"></i> المعلومات المهنية
+                        </h5>
+                        <div class="row g-3 mb-4">
+                            <div class="col-12">
+                                <label class="form-label fw-bold">الوظيفة الحالية</label>
+                                <input type="text" class="form-control" id="editCurrentJob" placeholder="المسمى الوظيفي">
                             </div>
                             <div class="col-12">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="editIsVisible">
-                                    <label class="form-check-label" for="editIsVisible">
-                                        إظهار العضو في القائمة العامة
-                                    </label>
-                                </div>
+                                <label class="form-label fw-bold">الخبرات والمهارات</label>
+                                <textarea class="form-control" id="editExpertise" rows="3" placeholder="اذكر خبرات ومهارات العضو..."></textarea>
+                            </div>
+                        </div>
+
+                        <!-- إعدادات الظهور -->
+                        <div class="mb-3">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="editIsVisible">
+                                <label class="form-check-label fw-bold" for="editIsVisible">
+                                    عرض العضو للعامة
+                                </label>
                             </div>
                         </div>
                     </form>
