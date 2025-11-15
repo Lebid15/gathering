@@ -3,6 +3,7 @@
 // اسم الجدول في Supabase
 const MEMBERS_TABLE = 'members';
 const ARTICLES_TABLE = 'articles';
+const COMPLAINTS_TABLE = 'complaints';
 
 // جلب جميع الأعضاء
 async function getAllMembers() {
@@ -246,4 +247,79 @@ window.articlesAPI = {
     addArticle,
     updateArticle,
     deleteArticle
+};
+
+// ============ دوال API للشكاوى ============
+
+// جلب جميع الشكاوى
+async function getAllComplaints() {
+    try {
+        const { data, error } = await window.supabaseClient
+            .from(COMPLAINTS_TABLE)
+            .select('*')
+            .order('created_at', { ascending: false });
+        
+        if (error) throw error;
+        return { success: true, data };
+    } catch (error) {
+        console.error('Error fetching complaints:', error);
+        return { success: false, error: error.message };
+    }
+}
+
+// جلب شكوى واحدة بالـ ID
+async function getComplaintById(id) {
+    try {
+        const { data, error } = await window.supabaseClient
+            .from(COMPLAINTS_TABLE)
+            .select('*')
+            .eq('id', id)
+            .single();
+        
+        if (error) throw error;
+        return { success: true, data };
+    } catch (error) {
+        console.error('Error fetching complaint:', error);
+        return { success: false, error: error.message };
+    }
+}
+
+// إضافة شكوى جديدة
+async function addComplaint(complaintData) {
+    try {
+        const { data, error } = await window.supabaseClient
+            .from(COMPLAINTS_TABLE)
+            .insert([complaintData])
+            .select();
+        
+        if (error) throw error;
+        return { success: true, data };
+    } catch (error) {
+        console.error('Error adding complaint:', error);
+        return { success: false, error: error.message };
+    }
+}
+
+// حذف شكوى
+async function deleteComplaint(id) {
+    try {
+        const { error } = await window.supabaseClient
+            .from(COMPLAINTS_TABLE)
+            .delete()
+            .eq('id', id);
+        
+        if (error) throw error;
+        return { success: true };
+    } catch (error) {
+        console.error('Error deleting complaint:', error);
+        return { success: false, error: error.message };
+    }
+}
+
+// تصدير دوال الشكاوى
+window.complaintsAPI = {
+    getAllComplaints,
+    getComplaintById,
+    addComplaint,
+    deleteComplaint
 };

@@ -20,6 +20,7 @@ const addSection = document.getElementById('addSection');
 const statisticsSection = document.getElementById('statisticsSection');
 const articlesSection = document.getElementById('articlesSection');
 const addArticleSection = document.getElementById('addArticleSection');
+const complaintsSection = document.getElementById('complaintsSection');
 
 // النماذج
 const addMemberForm = document.getElementById('addMemberForm');
@@ -78,6 +79,7 @@ function showSection(section) {
     statisticsSection.classList.add('d-none');
     articlesSection.classList.add('d-none');
     addArticleSection.classList.add('d-none');
+    complaintsSection.classList.add('d-none');
     
     if (section === 'members') {
         membersSection.classList.remove('d-none');
@@ -91,6 +93,9 @@ function showSection(section) {
         loadArticlesAdmin();
     } else if (section === 'addArticle') {
         addArticleSection.classList.remove('d-none');
+    } else if (section === 'complaints') {
+        complaintsSection.classList.remove('d-none');
+        loadComplaintsAdmin();
     }
 }
 
@@ -549,5 +554,158 @@ async function deleteArticleAction(id) {
         await loadArticlesAdmin();
     } else {
         alert('فشل في حذف المقال: ' + result.error);
+    }
+}
+
+// ============ إدارة الشكاوى ============
+
+let allComplaints = [];
+
+// عناصر الشكاوى
+const complaintsTableBody = document.getElementById('complaintsTableBody');
+const complaintsLoading = document.getElementById('complaintsLoading');
+const complaintsTableWrapper = document.getElementById('complaintsTableWrapper');
+const refreshComplaintsBtn = document.getElementById('refreshComplaintsBtn');
+
+// المودال
+const viewComplaintModal = new bootstrap.Modal(document.getElementById('viewComplaintModal'));
+
+// إعداد مستمعات الشكاوى
+if (refreshComplaintsBtn) {
+    refreshComplaintsBtn.addEventListener('click', loadComplaintsAdmin);
+}
+
+// تحميل الشكاوى للإدارة
+async function loadComplaintsAdmin() {
+    try {
+        complaintsLoading.classList.remove('d-none');
+        complaintsTableWrapper.classList.add('d-none');
+        
+        const result = await window.complaintsAPI.getAllComplaints();
+        
+        if (result.success) {
+            allComplaints = result.data;
+            displayComplaintsTable(allComplaints);
+        }
+    } catch (error) {
+        console.error('Error loading complaints:', error);
+    } finally {
+        complaintsLoading.classList.add('d-none');
+        complaintsTableWrapper.classList.remove('d-none');
+    }
+}
+
+// عرض جدول الشكاوى
+function displayComplaintsTable(complaints) {
+    complaintsTableBody.innerHTML = '';
+    
+    if (complaints.length === 0) {
+        complaintsTableBody.innerHTML = `
+            <tr>
+                <td colspan="6" class="text-center py-4">
+                    <i class="bi bi-inbox fs-1 text-muted"></i>
+                    <p class="mt-2 text-muted">لا توجد شكاوى</p>
+                </td>
+            </tr>
+        `;
+        return;
+    }
+    
+    complaints.forEach((complaint, index) => {
+        const row = createComplaintRow(complaint, index + 1);
+        complaintsTableBody.appendChild(row);
+    });
+}
+
+// إنشاء صف شكوى
+function createComplaintRow(complaint, index) {
+    const tr = document.createElement('tr');
+    const date = new Date(complaint.created_at).toLocaleDateString('ar-SA');
+    
+    const typeLabels = {
+        'complaint': 'شكوى',
+        'suggestion': 'اقتراح',
+        'inquiry': 'استفسار',
+        'other': 'أخرى'
+    };
+    
+    const typeColors = {
+        'complaint': 'danger',
+        'suggestion': 'success',
+        'inquiry': 'info',
+        'other': 'secondary'
+    };
+    
+    tr.innerHTML = `
+        <td>${index}</td>
+        <td>${complaint.full_name}</td>
+        <td><span class="badge bg-${typeColors[complaint.type]}">${typeLabels[complaint.type]}</span></td>
+        <td>${complaint.subject}</td>
+        <td>${date}</td>
+        <td>
+            <div class="btn-group btn-group-sm" role="group">
+                <button class="btn btn-outline-primary" onclick="viewComplaint('${complaint.id}')" title="عرض">
+                    <i class="bi bi-eye"></i>
+                </button>
+                <button class="btn btn-outline-danger" onclick="deleteComplaintConfirm('${complaint.id}', '${complaint.subject}')" title="حذف">
+                    <i class="bi bi-trash"></i>
+                </button>
+            </div>
+        </td>
+    `;
+    
+    return tr;
+}
+
+// عرض الشكوى
+window.viewComplaint = async function(id) {
+    const result = await window.complaintsAPI.getComplaintById(id);
+    
+    if (result.success) {
+        const complaint = result.data;
+        const date = new Date(complaint.created_at).toLocaleString('ar-SA');
+        
+        const typeLabels = {
+            'complaint': 'شكوى',
+            'suggestion': 'اقتراح',
+            'inquiry': 'استفسار',
+            'other': 'أخرى'
+        };
+        
+        const typeColors = {
+            'complaint': 'bg-danger',
+            'suggestion': 'bg-success',
+            'inquiry': 'bg-info',
+            'other': 'bg-secondary'
+        };
+        
+        document.getElementById('viewName').textContent = complaint.full_name;
+        document.getElementById('viewEmail').textContent = complaint.email;
+        document.getElementById('viewPhone').textContent = complaint.phone || 'غير متوفر';
+        document.getElementById('viewType').textContent = typeLabels[complaint.type];
+        document.getElementById('viewType').className = `badge ${typeColors[complaint.type]}`;
+        document.getElementById('viewSubject').textContent = complaint.subject;
+        document.getElementById('viewMessage').textContent = complaint.message;
+        document.getElementById('viewDate').textContent = date;
+        
+        viewComplaintModal.show();
+    }
+};
+
+// حذف شكوى مع التأكيد
+window.deleteComplaintConfirm = function(id, subject) {
+    if (confirm(`هل أنت متأكد من حذف الرسالة: ${subject}؟`)) {
+        deleteComplaintAction(id);
+    }
+};
+
+// حذف شكوى
+async function deleteComplaintAction(id) {
+    const result = await window.complaintsAPI.deleteComplaint(id);
+    
+    if (result.success) {
+        await loadComplaintsAdmin();
+    } else {
+        alert('فشل في حذف الرسالة: ' + result.error);
     }
 }

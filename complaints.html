@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تجمع خريجي الرقة - الشكاوى والاقتراحات</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <img src="public/assets/gathering-logo.png" alt="شعار التجمع" style="width: 64px; height: 64px; object-fit: contain;" class="me-2">
+                <div class="d-none d-md-block">
+                    <h1 class="h5 fw-bold mb-0" style="color: #1e40af;">تجمع خريجي الرقة</h1>
+                    <p class="small text-muted mb-0">معاً نحو مستقبل أفضل</p>
+                </div>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link px-3" href="index.html">
+                            <i class="bi bi-house-fill me-1"></i> الرئيسية
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link px-3" href="about.html">
+                            <i class="bi bi-info-circle me-1"></i> عن التجمع
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link px-3" href="articles.html">
+                            <i class="bi bi-newspaper me-1"></i> المقالات
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active fw-bold px-3" href="complaints.html">
+                            <i class="bi bi-chat-square-text me-1"></i> الشكاوى
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link px-3" href="register.html">
+                            <i class="bi bi-person-plus me-1"></i> التسجيل
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="py-5" style="background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);">
+        <div class="container">
+            <div class="text-center text-white">
+                <i class="bi bi-chat-square-text-fill display-1 mb-3"></i>
+                <h1 class="display-4 fw-black mb-3">الشكاوى والاقتراحات</h1>
+                <p class="lead fs-4">نحن نستمع إليك.. شاركنا رأيك أو شكواك</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Complaint Form Section -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="card shadow-lg border-0 rounded-4">
+                        <div class="card-body p-5">
+                            <div class="text-center mb-4">
+                                <i class="bi bi-megaphone-fill text-primary" style="font-size: 3rem;"></i>
+                                <h3 class="fw-bold mt-3">قدّم شكواك أو اقتراحك</h3>
+                                <p class="text-muted">سيتم مراجعة رسالتك من قبل الإدارة والرد عليك في أقرب وقت</p>
+                            </div>
+
+                            <div id="alertContainer"></div>
+
+                            <form id="complaintForm">
+                                <div class="mb-4">
+                                    <label class="form-label fw-bold">الاسم الكامل <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control form-control-lg" id="fullName" required>
+                                </div>
+
+                                <div class="mb-4">
+                                    <label class="form-label fw-bold">البريد الإلكتروني <span class="text-danger">*</span></label>
+                                    <input type="email" class="form-control form-control-lg" id="email" required>
+                                </div>
+
+                                <div class="mb-4">
+                                    <label class="form-label fw-bold">رقم الجوال (اختياري)</label>
+                                    <input type="tel" class="form-control form-control-lg" id="phone" placeholder="+963 9XXXXXXXX">
+                                </div>
+
+                                <div class="mb-4">
+                                    <label class="form-label fw-bold">نوع الرسالة <span class="text-danger">*</span></label>
+                                    <select class="form-select form-select-lg" id="type" required>
+                                        <option value="">اختر...</option>
+                                        <option value="complaint">شكوى</option>
+                                        <option value="suggestion">اقتراح</option>
+                                        <option value="inquiry">استفسار</option>
+                                        <option value="other">أخرى</option>
+                                    </select>
+                                </div>
+
+                                <div class="mb-4">
+                                    <label class="form-label fw-bold">عنوان الرسالة <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control form-control-lg" id="subject" required>
+                                </div>
+
+                                <div class="mb-4">
+                                    <label class="form-label fw-bold">تفاصيل الرسالة <span class="text-danger">*</span></label>
+                                    <textarea class="form-control form-control-lg" id="message" rows="6" required placeholder="اكتب رسالتك بالتفصيل..."></textarea>
+                                </div>
+
+                                <div class="d-grid">
+                                    <button type="submit" class="btn btn-primary btn-lg fw-bold" id="submitBtn">
+                                        <i class="bi bi-send-fill me-2"></i> إرسال الرسالة
+                                    </button>
+                                </div>
+                            </form>
+
+                            <!-- Success Message -->
+                            <div id="successMessage" class="d-none mt-4">
+                                <div class="alert alert-success text-center py-4">
+                                    <i class="bi bi-check-circle-fill fs-1 d-block mb-3"></i>
+                                    <h4 class="fw-bold mb-2">تم إرسال رسالتك بنجاح!</h4>
+                                    <p class="mb-0">شكراً لتواصلك معنا، سيتم الرد عليك قريباً</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Info Cards -->
+                    <div class="row g-3 mt-4">
+                        <div class="col-md-6">
+                            <div class="card border-primary h-100">
+                                <div class="card-body text-center">
+                                    <i class="bi bi-clock-fill text-primary fs-1 mb-3"></i>
+                                    <h5 class="fw-bold">سرعة الاستجابة</h5>
+                                    <p class="text-muted mb-0">نرد خلال 24-48 ساعة</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card border-success h-100">
+                                <div class="card-body text-center">
+                                    <i class="bi bi-shield-check text-success fs-1 mb-3"></i>
+                                    <h5 class="fw-bold">السرية التامة</h5>
+                                    <p class="text-muted mb-0">بياناتك محمية ومحترمة</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="text-white text-center py-4" style="background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);">
+        <div class="container">
+            <div class="row g-4 text-end">
+                <div class="col-md-4">
+                    <h5 class="fw-bold mb-3">تجمع خريجي ومثقفي الرقة</h5>
+                    <p class="text-white-50">
+                        كيان مدني مستقل وغير ربحي، يهدف إلى توحيد صوت المثقفين والخريجين
+                        لخدمة المجتمع وتحقيق العدالة والشفافية.
+                    </p>
+                </div>
+                <div class="col-md-4">
+                    <h5 class="fw-bold mb-3">روابط سريعة</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="about.html" class="text-white-50 text-decoration-none">عن التجمع</a></li>
+                        <li class="mb-2"><a href="articles.html" class="text-white-50 text-decoration-none">المقالات</a></li>
+                        <li class="mb-2"><a href="complaints.html" class="text-white-50 text-decoration-none">الشكاوى</a></li>
+                        <li class="mb-2"><a href="register.html" class="text-white-50 text-decoration-none">التسجيل</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5 class="fw-bold mb-3">تواصل معنا</h5>
+                    <div class="text-white-50 text-end">
+                        <p class="mb-2"><i class="bi bi-envelope-fill me-2"></i> tanweersyorg@gmail.com</p>
+                        <p class="mb-2"><i class="bi bi-telephone-fill me-2"></i> +963 XXX XXX XXX</p>
+                        <p class="mb-2"><i class="bi bi-geo-alt-fill me-2"></i> محافظة الرقة، سوريا</p>
+                    </div>
+                    <div class="d-flex gap-2 justify-content-end mt-3">
+                        <a href="#" class="btn btn-outline-light btn-sm rounded-circle" style="width: 40px; height: 40px;">
+                            <i class="bi bi-facebook"></i>
+                        </a>
+                        <a href="#" class="btn btn-outline-light btn-sm rounded-circle" style="width: 40px; height: 40px;">
+                            <i class="bi bi-twitter"></i>
+                        </a>
+                        <a href="#" class="btn btn-outline-light btn-sm rounded-circle" style="width: 40px; height: 40px;">
+                            <i class="bi bi-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4 border-white opacity-25">
+            <p class="mb-0 text-white-50">© 2025 تجمع خريجي ومثقفي محافظة الرقة. جميع الحقوق محفوظة.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase-config.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/complaints.js"></script>
+</body>
+</html>
