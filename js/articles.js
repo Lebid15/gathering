@@ -47,7 +47,7 @@ function createArticleCard(article) {
     const col = document.createElement('div');
     col.className = 'col-12';
     
-    const date = new Date(article.created_at).toLocaleDateString('ar-SA', {
+    const date = new Date(article.created_at).toLocaleDateString('en-US', {
         year: 'numeric',
         month: 'long',
         day: 'numeric'
@@ -87,7 +87,7 @@ window.showArticleModal = async function(id) {
     
     if (result.success) {
         const article = result.data;
-        const date = new Date(article.created_at).toLocaleDateString('ar-SA', {
+        const date = new Date(article.created_at).toLocaleDateString('en-US', {
             year: 'numeric',
             month: 'long',
             day: 'numeric'
