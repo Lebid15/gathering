@@ -45,7 +45,7 @@ function displayArticles(articles) {
 // إنشاء كارد مقال
 function createArticleCard(article) {
     const col = document.createElement('div');
-    col.className = 'col-md-6 col-lg-4';
+    col.className = 'col-12';
     
     const date = new Date(article.created_at).toLocaleDateString('ar-SA', {
         year: 'numeric',
@@ -54,25 +54,23 @@ function createArticleCard(article) {
     });
     
     // اختصار المحتوى
-    const shortContent = article.content.length > 150 
-        ? article.content.substring(0, 150) + '...' 
+    const shortContent = article.content.length > 200 
+        ? article.content.substring(0, 200) + '...' 
         : article.content;
     
-    // الصورة الافتراضية
-    const imageUrl = article.image_url || 'https://via.placeholder.com/400x250?text=مقال';
-    
     col.innerHTML = `
-        <div class="card h-100 shadow-sm border-0 rounded-4 overflow-hidden hover-lift">
-            <img src="${imageUrl}" class="card-img-top" alt="${article.title}" style="height: 200px; object-fit: cover;">
-            <div class="card-body d-flex flex-column">
-                <h5 class="card-title fw-bold text-primary mb-3">${article.title}</h5>
-                <p class="card-text text-muted mb-3">${shortContent}</p>
-                <div class="mt-auto">
-                    <div class="d-flex justify-content-between align-items-center text-muted small mb-3">
+        <div class="card shadow-sm border-0 rounded-4 overflow-hidden hover-lift mb-4">
+            <div class="card-body p-4">
+                <div class="text-center mb-3">
+                    <h4 class="card-title fw-bold text-primary mb-3">${article.title}</h4>
+                    <div class="d-flex justify-content-center align-items-center gap-4 text-muted small mb-3">
                         <span><i class="bi bi-person-fill me-1"></i> ${article.author}</span>
                         <span><i class="bi bi-calendar3 me-1"></i> ${date}</span>
                     </div>
-                    <button class="btn btn-primary btn-sm w-100" onclick="showArticleModal('${article.id}')">
+                </div>
+                <p class="card-text text-muted text-center mb-4" style="line-height: 1.8;">${shortContent}</p>
+                <div class="text-center">
+                    <button class="btn btn-primary" onclick="showArticleModal('${article.id}')">
                         <i class="bi bi-book me-2"></i> اقرأ المزيد
                     </button>
                 </div>
@@ -95,8 +93,6 @@ window.showArticleModal = async function(id) {
             day: 'numeric'
         });
         
-        const imageUrl = article.image_url || 'https://via.placeholder.com/800x400?text=مقال';
-        
         // إنشاء المودال
         const modalHtml = `
             <div class="modal fade" id="articleModal" tabindex="-1">
@@ -107,12 +103,11 @@ window.showArticleModal = async function(id) {
                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                         </div>
                         <div class="modal-body">
-                            <img src="${imageUrl}" class="img-fluid rounded mb-4" alt="${article.title}">
-                            <div class="d-flex justify-content-between align-items-center text-muted mb-4">
+                            <div class="d-flex justify-content-center align-items-center gap-4 text-muted mb-4">
                                 <span><i class="bi bi-person-fill me-2"></i> ${article.author}</span>
                                 <span><i class="bi bi-calendar3 me-2"></i> ${date}</span>
                             </div>
-                            <div class="article-content" style="white-space: pre-wrap; line-height: 1.8;">
+                            <div class="article-content text-center" style="white-space: pre-wrap; line-height: 2;">
                                 ${article.content}
                             </div>
                         </div>

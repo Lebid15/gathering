@@ -476,8 +476,7 @@ async function handleAddArticle(e) {
     const articleData = {
         title: document.getElementById('articleTitle').value.trim(),
         author: document.getElementById('articleAuthor').value.trim(),
-        content: document.getElementById('articleContent').value.trim(),
-        image_url: document.getElementById('articleImage').value.trim() || null
+        content: document.getElementById('articleContent').value.trim()
     };
 
     if (!articleData.title || !articleData.author || !articleData.content) {
@@ -507,7 +506,6 @@ window.editArticleAdmin = async function(id) {
         document.getElementById('editArticleTitle').value = article.title;
         document.getElementById('editArticleAuthor').value = article.author;
         document.getElementById('editArticleContent').value = article.content;
-        document.getElementById('editArticleImage').value = article.image_url || '';
         
         editArticleModal.show();
     }
@@ -520,8 +518,7 @@ async function handleEditArticle() {
     const articleData = {
         title: document.getElementById('editArticleTitle').value.trim(),
         author: document.getElementById('editArticleAuthor').value.trim(),
-        content: document.getElementById('editArticleContent').value.trim(),
-        image_url: document.getElementById('editArticleImage').value.trim() || null
+        content: document.getElementById('editArticleContent').value.trim()
     };
     
     const result = await window.articlesAPI.updateArticle(currentEditArticleId, articleData);
