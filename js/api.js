@@ -2,6 +2,7 @@
 
 // اسم الجدول في Supabase
 const MEMBERS_TABLE = 'members';
+const ARTICLES_TABLE = 'articles';
 
 // جلب جميع الأعضاء
 async function getAllMembers() {
@@ -152,4 +153,97 @@ window.membersAPI = {
     deleteMember,
     toggleMemberVisibility,
     getStatistics
+};
+
+// ============ دوال API للمقالات ============
+
+// جلب جميع المقالات
+async function getAllArticles() {
+    try {
+        const { data, error } = await window.supabaseClient
+            .from(ARTICLES_TABLE)
+            .select('*')
+            .order('created_at', { ascending: false });
+        
+        if (error) throw error;
+        return { success: true, data };
+    } catch (error) {
+        console.error('Error fetching articles:', error);
+        return { success: false, error: error.message };
+    }
+}
+
+// جلب مقال واحد بالـ ID
+async function getArticleById(id) {
+    try {
+        const { data, error } = await window.supabaseClient
+            .from(ARTICLES_TABLE)
+            .select('*')
+            .eq('id', id)
+            .single();
+        
+        if (error) throw error;
+        return { success: true, data };
+    } catch (error) {
+        console.error('Error fetching article:', error);
+        return { success: false, error: error.message };
+    }
+}
+
+// إضافة مقال جديد
+async function addArticle(articleData) {
+    try {
+        const { data, error } = await window.supabaseClient
+            .from(ARTICLES_TABLE)
+            .insert([articleData])
+            .select();
+        
+        if (error) throw error;
+        return { success: true, data };
+    } catch (error) {
+        console.error('Error adding article:', error);
+        return { success: false, error: error.message };
+    }
+}
+
+// تحديث مقال
+async function updateArticle(id, articleData) {
+    try {
+        const { data, error } = await window.supabaseClient
+            .from(ARTICLES_TABLE)
+            .update(articleData)
+            .eq('id', id)
+            .select();
+        
+        if (error) throw error;
+        return { success: true, data };
+    } catch (error) {
+        console.error('Error updating article:', error);
+        return { success: false, error: error.message };
+    }
+}
+
+// حذف مقال
+async function deleteArticle(id) {
+    try {
+        const { error } = await window.supabaseClient
+            .from(ARTICLES_TABLE)
+            .delete()
+            .eq('id', id);
+        
+        if (error) throw error;
+        return { success: true };
+    } catch (error) {
+        console.error('Error deleting article:', error);
+        return { success: false, error: error.message };
+    }
+}
+
+// تصدير دوال المقالات
+window.articlesAPI = {
+    getAllArticles,
+    getArticleById,
+    addArticle,
+    updateArticle,
+    deleteArticle
 };

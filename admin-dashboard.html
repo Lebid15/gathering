@@ -39,6 +39,12 @@
                         <a href="#" class="list-group-item list-group-item-action" data-section="add">
                             <i class="bi bi-plus-circle"></i> إضافة عضو جديد
                         </a>
+                        <a href="#" class="list-group-item list-group-item-action" data-section="articles">
+                            <i class="bi bi-newspaper"></i> إدارة المقالات
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action" data-section="addArticle">
+                            <i class="bi bi-file-earmark-plus"></i> إضافة مقال
+                        </a>
                         <a href="#" class="list-group-item list-group-item-action" data-section="statistics">
                             <i class="bi bi-graph-up"></i> الإحصائيات
                         </a>
@@ -262,6 +268,140 @@
                             </div>
                         </div>
                     </div>
+                </div>
+
+                <!-- Articles Management Section -->
+                <div id="articlesSection" class="content-section d-none">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h2>
+                            <i class="bi bi-newspaper"></i> إدارة المقالات
+                        </h2>
+                        <button class="btn btn-success" id="refreshArticlesBtn">
+                            <i class="bi bi-arrow-clockwise"></i> تحديث
+                        </button>
+                    </div>
+
+                    <!-- Articles Table -->
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <div id="articlesTableContainer">
+                                <!-- Loading -->
+                                <div id="articlesLoading" class="text-center py-5">
+                                    <div class="spinner-border text-primary" role="status">
+                                        <span class="visually-hidden">جاري التحميل...</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Table -->
+                                <div class="table-responsive d-none" id="articlesTableWrapper">
+                                    <table class="table table-hover">
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th>#</th>
+                                                <th>العنوان</th>
+                                                <th>الكاتب</th>
+                                                <th>التاريخ</th>
+                                                <th>الإجراءات</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="articlesTableBody">
+                                            <!-- Articles will be loaded here -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add Article Section -->
+                <div id="addArticleSection" class="content-section d-none">
+                    <h2 class="mb-4">
+                        <i class="bi bi-file-earmark-plus"></i> إضافة مقال جديد
+                    </h2>
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <div id="addArticleAlertContainer"></div>
+                            <form id="addArticleForm">
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">عنوان المقال <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control form-control-lg" id="articleTitle" required>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">اسم الكاتب <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="articleAuthor" required>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">المحتوى <span class="text-danger">*</span></label>
+                                    <textarea class="form-control" id="articleContent" rows="10" required></textarea>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">رابط الصورة (اختياري)</label>
+                                    <input type="url" class="form-control" id="articleImage" placeholder="https://example.com/image.jpg">
+                                    <div class="form-text">أدخل رابط صورة من الإنترنت</div>
+                                </div>
+
+                                <div class="d-flex gap-2">
+                                    <button type="submit" class="btn btn-primary btn-lg">
+                                        <i class="bi bi-plus-lg me-2"></i> نشر المقال
+                                    </button>
+                                    <button type="reset" class="btn btn-secondary btn-lg">
+                                        <i class="bi bi-x-lg me-2"></i> مسح الحقول
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Article Modal -->
+    <div class="modal fade" id="editArticleModal" tabindex="-1">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="bi bi-pencil"></i> تعديل المقال
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="editArticleAlertContainer"></div>
+                    <form id="editArticleForm">
+                        <input type="hidden" id="editArticleId">
+                        
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">عنوان المقال <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control form-control-lg" id="editArticleTitle" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">اسم الكاتب <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="editArticleAuthor" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">المحتوى <span class="text-danger">*</span></label>
+                            <textarea class="form-control" id="editArticleContent" rows="10" required></textarea>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">رابط الصورة (اختياري)</label>
+                            <input type="url" class="form-control" id="editArticleImage" placeholder="https://example.com/image.jpg">
+                            <div class="form-text">أدخل رابط صورة من الإنترنت</div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+                    <button type="button" class="btn btn-primary" id="saveArticleEditBtn">
+                        <i class="bi bi-save"></i> حفظ التغييرات
+                    </button>
                 </div>
             </div>
         </div>
