@@ -201,7 +201,6 @@ async function handleAddMember(e) {
     const memberData = {
         first_name: document.getElementById('addFirstName').value.trim(),
         last_name: document.getElementById('addLastName').value.trim(),
-        nickname: document.getElementById('addNickname').value.trim() || null,
         email: document.getElementById('addEmail').value.trim() || null,
         phone_primary: document.getElementById('addPhone').value.trim() || null,
         city: document.getElementById('addCity').value.trim() || null,
@@ -246,7 +245,6 @@ window.editMember = async function(id) {
         document.getElementById('editMemberId').value = id;
         document.getElementById('editFirstName').value = member.first_name;
         document.getElementById('editLastName').value = member.last_name;
-        document.getElementById('editNickname').value = member.nickname || '';
         document.getElementById('editEmail').value = member.email || '';
         document.getElementById('editPhone').value = member.phone_primary || '';
         
@@ -277,7 +275,6 @@ async function handleEditMember() {
         // المعلومات الشخصية
         first_name: document.getElementById('editFirstName').value.trim(),
         last_name: document.getElementById('editLastName').value.trim(),
-        nickname: document.getElementById('editNickname').value.trim() || null,
         email: document.getElementById('editEmail').value.trim() || null,
         phone_primary: document.getElementById('editPhone').value.trim() || null,
         
