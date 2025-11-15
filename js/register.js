@@ -37,8 +37,8 @@ function validateForm() {
         return false;
     }
 
-    if (!phone || !/^\d{9,10}$/.test(phone)) {
-        showAlert('الرجاء إدخال رقم جوال صحيح (9-10 أرقام)');
+    if (!phone) {
+        showAlert('الرجاء إدخال رقم الجوال');
         return false;
     }
 
@@ -72,9 +72,8 @@ registerForm.addEventListener('submit', async (e) => {
     const formData = {
         first_name: document.getElementById('firstName').value.trim(),
         last_name: document.getElementById('lastName').value.trim(),
-        nickname: document.getElementById('nickname').value.trim() || null,
         email: document.getElementById('email').value.trim(),
-        phone_primary: '+963' + document.getElementById('phone').value.trim(),
+        phone_primary: document.getElementById('phone').value.trim(),
         city: document.getElementById('city').value.trim(),
         member_type: document.getElementById('memberType').value,
         degree: document.getElementById('degree').value || null,
